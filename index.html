@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NFT Radar — Фильтры</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="app-header">
+    <h1>Новый фильтр</h1>
+    <p class="app-sub">Можно сохранить до 10 фильтров. Бот проверяет все активные.</p>
+  </header>
+
+  <!-- Название фильтра -->
+  <section class="block">
+    <div class="block-title">Название</div>
+    <input type="text" id="filterName" class="text-input" placeholder="Например: Дешёвые Pepe" maxlength="40">
+  </section>
+
+  <!-- Маркетплейсы -->
+  <section class="block">
+    <div class="block-title">Площадки</div>
+    <div class="chips" id="marketplaces">
+      <button class="chip active" data-value="getgems">GetGems</button>
+      <button class="chip active" data-value="mrkt">MRKT</button>
+      <button class="chip active" data-value="portals">Portals</button>
+      <button class="chip active" data-value="tonnel">Tonnel</button>
+    </div>
+  </section>
+
+  <!-- Подарок (тип NFT) -->
+  <section class="block">
+    <div class="block-title">Подарок</div>
+    <div class="select-field" data-attr="gift">
+      <span class="select-placeholder">Выберите подарок</span>
+      <i class="select-arrow">▾</i>
+    </div>
+    <div class="dropdown search-dropdown" data-for="gift">
+      <input type="text" class="dropdown-search" placeholder="Поиск...">
+      <div class="dropdown-list"></div>
+    </div>
+
+    <label class="field-label" style="margin-top:12px;">Или номер подарка</label>
+    <input type="text" id="giftNumber" class="text-input" placeholder="Введите номер подарка">
+  </section>
+
+  <!-- Дополнительные параметры: модель / символ / фон (мультивыбор) -->
+  <section class="block">
+    <div class="block-title">Дополнительные параметры</div>
+
+    <label class="field-label">Модель</label>
+    <div class="select-field multi" data-attr="model">
+      <span class="select-placeholder">Выберите модель</span>
+      <span class="select-actions"><i class="clear-all" data-clear="model">✕</i><i class="select-arrow">▾</i></span>
+    </div>
+    <div class="dropdown search-dropdown" data-for="model">
+      <input type="text" class="dropdown-search" placeholder="Поиск...">
+      <div class="dropdown-list"></div>
+    </div>
+
+    <label class="field-label">Символ</label>
+    <div class="select-field multi" data-attr="symbol">
+      <span class="select-placeholder">Выберите символ</span>
+      <span class="select-actions"><i class="clear-all" data-clear="symbol">✕</i><i class="select-arrow">▾</i></span>
+    </div>
+    <div class="dropdown search-dropdown" data-for="symbol">
+      <input type="text" class="dropdown-search" placeholder="Поиск...">
+      <div class="dropdown-list"></div>
+    </div>
+
+    <label class="field-label">Фон</label>
+    <div class="select-field multi" data-attr="backdrop">
+      <span class="select-placeholder">Выберите фон</span>
+      <span class="select-actions"><i class="clear-all" data-clear="backdrop">✕</i><i class="select-arrow">▾</i></span>
+    </div>
+    <div class="dropdown search-dropdown" data-for="backdrop">
+      <input type="text" class="dropdown-search" placeholder="Поиск...">
+      <div class="dropdown-list"></div>
+    </div>
+  </section>
+
+  <!-- Цена -->
+  <section class="block">
+    <div class="block-title">Цена</div>
+
+    <label class="field-label">От</label>
+    <input type="number" id="priceMin" class="text-input" placeholder="Минимальная цена" min="0">
+
+    <label class="field-label" style="margin-top:12px;">До</label>
+    <input type="number" id="priceMax" class="text-input" placeholder="Максимальная цена" min="0">
+  </section>
+
+  <!-- Зеркальный фильтр продажи -->
+  <section class="block">
+    <label class="checkbox-row">
+      <input type="checkbox" id="alsoSaleFilter">
+      <span>Также создать фильтр продажи</span>
+    </label>
+  </section>
+
+  <!-- Порог отклонения от флора -->
+  <section class="block">
+    <div class="block-title">
+      Не дороже флора на
+      <span class="value-badge" id="floorValueLabel">10%</span>
+    </div>
+    <div class="floor-hint" id="floorHint">Выберите подарок — подсказка по флору</div>
+    <input type="range" id="floorSlider" class="slider" min="0" max="100" step="5" value="10">
+    <div class="slider-hint">
+      <span>Только по флору</span>
+      <span>Без ограничения</span>
+    </div>
+  </section>
+
+  <div class="save-bar">
+    <button class="save-btn" id="saveBtn">Сохранить фильтр</button>
+    <input type="hidden" id="editFilterId" value="">
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
