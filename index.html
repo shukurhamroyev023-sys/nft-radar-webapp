@@ -13,7 +13,6 @@
 
   <header class="app-header">
     <h1>Новый фильтр</h1>
-    <p class="app-sub">Можно сохранить до 10 фильтров. Бот проверяет все активные.</p>
   </header>
 
   <!-- Название фильтра -->
@@ -103,14 +102,14 @@
     </label>
   </section>
 
-  <!-- Порог отклонения от флора -->
-  <section class="block">
+  <!-- Порог отклонения от флора (скрыт, 100% = без ограничения) -->
+  <section class="block" style="display:none">
     <div class="block-title">
       Не дороже флора на
-      <span class="value-badge" id="floorValueLabel">10%</span>
+      <span class="value-badge" id="floorValueLabel">100%</span>
     </div>
     <div class="floor-hint" id="floorHint">Выберите подарок — подсказка по флору</div>
-    <input type="range" id="floorSlider" class="slider" min="0" max="100" step="5" value="10">
+    <input type="range" id="floorSlider" class="slider" min="0" max="100" step="5" value="100">
     <div class="slider-hint">
       <span>Только по флору</span>
       <span>Без ограничения</span>
@@ -125,5 +124,6 @@
 </div>
 
 <script src="app.js"></script>
+<button class="save-btn" style="display:none"></button>
 </body>
 </html>
