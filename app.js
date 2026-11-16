@@ -14,6 +14,17 @@ function modelImgUrl(giftName, modelName) {
   return `${API_BASE}/model/${encodeURIComponent(giftName)}/${encodeURIComponent(modelName)}.png?size=64`;
 }
 
+function fragImgUrl(giftName) {
+  const slug = String(giftName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  return `https://nft.fragment.com/gift/${slug}-1.webp`;
+}
+
+function giftImg(cls, g, lazy) {
+  const frag = fragImgUrl(g.name);
+  const src = g.previewUrl || frag;
+  return `<img class="${cls}" src="${src}" alt=""${lazy ? ' loading="lazy"' : ''} onerror="if(this.src!=='${frag}'){this.src='${frag}'}else{this.remove()}">`;
+}
+
 function symbolImgUrl(giftName, symbolName) {
   return `${API_BASE}/symbol/${encodeURIComponent(giftName)}/${encodeURIComponent(symbolName)}.png?size=64`;
 }
@@ -146,7 +157,7 @@ function renderGiftField() {
     return;
   }
   const thumb = selectedGift.previewUrl
-    ? `<img class="field-thumb" src="${selectedGift.previewUrl}" alt="" onerror="this.remove()">`
+    ? giftImg('field-thumb', selectedGift, false)
     : '';
   field.innerHTML = `
     <span class="select-tag">${thumb}${selectedGift.name}
@@ -156,7 +167,7 @@ function renderGiftField() {
 
 function giftThumbHtml(g) {
   if (g.previewUrl) {
-    return `<img class="item-thumb gift-preview" src="${g.previewUrl}" alt="" loading="lazy" onerror="this.remove()">`;
+    return giftImg('item-thumb gift-preview', g, true);
   }
   // Пока превью не загружено — только название, без эмодзи
   return `<span class="item-thumb-placeholder"></span>`;
@@ -220,7 +231,7 @@ async function prefetchGiftPreviews(gifts) {
           .find(n => n.dataset.giftName === g.name);
         if (el && g.previewUrl) {
           const slot = el.querySelector('.item-thumb-placeholder, .gift-preview, .item-thumb');
-          const img = `<img class="item-thumb gift-preview" src="${g.previewUrl}" alt="" loading="lazy" onerror="this.remove()">`;
+          const img = giftImg('item-thumb gift-preview', g, true);
           if (slot) {
             slot.outerHTML = img;
           } else {
