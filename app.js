@@ -21,8 +21,8 @@ function fragImgUrl(giftName) {
 
 function giftImg(cls, g, lazy) {
   const frag = fragImgUrl(g.name);
-  const src = g.previewUrl || frag;
-  return `<img class="${cls}" src="${src}" alt=""${lazy ? ' loading="lazy"' : ''} onerror="if(this.src!=='${frag}'){this.src='${frag}'}else{this.remove()}">`;
+  const alt = g.previewUrl || '';
+  return `<img class="${cls}" src="${frag}" alt="" onerror="if('${alt}' && this.src!=='${alt}'){this.src='${alt}'}else{this.remove()}">`;
 }
 
 function symbolImgUrl(giftName, symbolName) {
