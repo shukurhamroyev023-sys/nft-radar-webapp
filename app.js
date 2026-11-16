@@ -20,9 +20,12 @@ function fragImgUrl(giftName) {
 }
 
 function giftImg(cls, g, lazy) {
-  const frag = fragImgUrl(g.name);
-  const alt = g.previewUrl || '';
-  return `<img class="${cls}" src="${frag}" alt="" onerror="if('${alt}' && this.src!=='${alt}'){this.src='${alt}'}else{this.remove()}">`;
+  const slug = String(g.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const list = [`https://nft.fragment.com/gift/${slug}-1.small.jpg`,
+                `https://nft.fragment.com/gift/${slug}-1.webp`];
+  if (g.previewUrl) list.push(g.previewUrl);
+  const alts = list.slice(1).join('|');
+  return `<img class="${cls}" src="${list[0]}" alt=""${lazy ? ' loading="lazy"' : ''} data-alts="${alts}" onerror="var a=(this.dataset.alts||'').split('|').filter(Boolean);if(a.length){this.src=a.shift();this.dataset.alts=a.join('|')}else{this.remove()}">`;
 }
 
 function symbolImgUrl(giftName, symbolName) {
