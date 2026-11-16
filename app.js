@@ -161,7 +161,7 @@ function renderGiftField() {
     field.innerHTML = `<span class="select-placeholder">Выберите подарок</span><i class="select-arrow">▾</i>`;
     return;
   }
-  const thumb = selectedGift.previewUrl
+  const thumb = (selectedGift.previewUrl || GIFT_THUMBS[selectedGift.name])
     ? giftImg('field-thumb', selectedGift, false)
     : '';
   field.innerHTML = `
@@ -171,7 +171,7 @@ function renderGiftField() {
 }
 
 function giftThumbHtml(g) {
-  if (g.previewUrl) {
+  if (g.previewUrl || GIFT_THUMBS[g.name]) {
     return giftImg('item-thumb gift-preview', g, true);
   }
   // Пока превью не загружено — только название, без эмодзи
